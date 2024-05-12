@@ -36,6 +36,14 @@ export interface ICustomerData {
   clear(): void;
 }
 
+export interface IBasketModel {
+  items: TItems;
+  add(id: string): void;
+  remove(id: string): void;
+}
+
+
+
 export type TItems = Set<string>;
 
 export type TPayment = 'online'|'offline';

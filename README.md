@@ -79,6 +79,16 @@ export interface ICardData {
 }
 ```
 
+Интерфейс для модели данных корзины
+
+```
+export interface IBasketModel {
+  items: TItems;
+  add(id: string): void;
+  remove(id: string): void;
+}
+``` 
+
 ## Архитектура приложения 
 
 Код приложения разделен на слои согласно парадигме MVP:
