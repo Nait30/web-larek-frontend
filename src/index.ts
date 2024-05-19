@@ -99,7 +99,7 @@ events.on('orderContacts:submit', (data:{email: string, phone: string}) => {
   .then((data: IOrderResult) => {
     modalWithOrderComplete.open(data.total);
     orderData.clear();
-    
+    cardsData.clearBusket();
   })
 })
 
