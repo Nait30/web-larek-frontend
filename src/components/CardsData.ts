@@ -22,12 +22,11 @@ export class CardData implements ICardData {
 	}
 
 	changeAddStatus(id: string): void {
-    let card = this.cards.find((card) => card.id === id)
-    let index = this.cards.indexOf(card);
-		this._cards[index].added = !(this._cards[index].added);
+		let card = this.cards.find((card) => card.id === id);
+		let index = this.cards.indexOf(card);
+		this._cards[index].added = !this._cards[index].added;
 		this.events.emit('basket:changed', this.getAddedCards());
 	}
-
 
 	getAddedCards(): ICard[] {
 		let cards = this.cards.filter((card) => {
@@ -48,19 +47,17 @@ export class CardData implements ICardData {
 
 	getBasketTotal(): number {
 		let items = this.getAddedCards();
-		return items.reduce((acc, val)=> acc + val.price, 0
-		)
+		return items.reduce((acc, val) => acc + val.price, 0);
 	}
 
 	getCard(cardId: string): ICard {
 		return this._cards.find((item) => item.id === cardId);
 	}
 
-
-	clearBusket(): void{
+	clearBusket(): void {
 		this._cards.forEach((card) => {
 			card.added = false;
-		})
+		});
 		this.events.emit('basket:changed', this.getAddedCards());
 	}
 }
