@@ -34,7 +34,6 @@ export abstract class Card extends Component<ICard> {
 	setCardCategoryColor(element: HTMLSpanElement, config: Record<string, string>){
 		Object.values(config).forEach((selector)=>{
 			element.classList.remove(selector);
-			console.log(selector)
 		})
 		const key = element.textContent;
 		element.classList.add(config[key]);
