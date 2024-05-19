@@ -1,5 +1,5 @@
 import { IBasketModel, ICard, TItems } from "../types";
-import { IEvents } from "./base/events";
+import { IEvents } from "./base/Events";
 
 export class BasketModel implements IBasketModel {
   protected _items: TItems;

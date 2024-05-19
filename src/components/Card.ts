@@ -2,7 +2,7 @@ import { ICard } from '../types';
 import { cardCategoryConfig } from '../utils/constants';
 import { cloneTemplate, ensureElement } from '../utils/utils';
 import { Component } from './base/Component';
-import { IEvents } from './base/events';
+import { IEvents } from './base/Events';
 
 export abstract class Card extends Component<ICard> {
 	protected element: HTMLElement;

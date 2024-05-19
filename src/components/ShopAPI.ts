@@ -1,5 +1,5 @@
 import { ICard, IOrderInfo, IOrderResult } from "../types";
-import { Api } from "./base/api";
+import { Api } from "./base/Api";
 import { ApiListResponse } from "../types/index";
 
 export interface IShopAPI {

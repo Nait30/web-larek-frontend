@@ -1,7 +1,7 @@
 import { IOrderInfo, TPayment } from "../types";
 import { cloneTemplate } from "../utils/utils";
 import { Component } from "./base/Component";
-import { IEvents } from "./base/events";
+import { IEvents } from "./base/Events";
 
 export class Modal<T> extends Component<T> {
   protected modal: HTMLElement;
