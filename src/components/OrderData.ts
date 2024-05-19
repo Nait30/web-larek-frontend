@@ -17,7 +17,10 @@ constructor(events: IEvents){
 
 
   getOrderInfo(): IOrderInfo {
+<<<<<<< HEAD
   if (this.checkValidation()){
+=======
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
     return {
       "payment": this._payment,
       "email": this._email,
@@ -25,6 +28,7 @@ constructor(events: IEvents){
       "address": this._address,
       "total": this._total,
       "items": this._items
+<<<<<<< HEAD
    }
   }
   }
@@ -65,6 +69,30 @@ constructor(events: IEvents){
   checkValidation(): boolean {
     return !!(this._payment&&this._email&&this._phone&&this._address&&this._total&&this._items);
 
+=======
+    }
+  }
+  set payment(payment: TPayment) {
+    this._payment = payment;
+  }
+  set email(email: string) {
+    this._email = email;
+  }
+  set phone(phone: string) {
+    this._phone = phone;
+  }
+  set address(address: string) {
+    this._address = address;
+  }
+  set total(total: number) {
+    this._total = total
+  }
+  set items(items: TItems) {
+    this._items = items;
+  }
+  checkValidation(): boolean {
+    return !!(this.payment&&this._email&&this.phone&&this._address&&this.total&&this.items);
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
   }
   clear(): void {
     this.payment = null;

@@ -10,20 +10,34 @@ export interface ICard {
 }
 
 export interface IOrderInfo {
+<<<<<<< HEAD
   payment?: TPayment;
   email?: string;
   phone?: string;
   address?: string;
   total?: TCost;
   items?: TItems;
+=======
+  payment: TPayment;
+  email: string;
+  phone: string;
+  address: string;
+  total: TCost;
+  items: TItems;
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
 }
 
 export interface ICardData {
   cards: ICard[];
+<<<<<<< HEAD
+=======
+  preview: string | null;
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
   getCard(cardId: string): ICard;
 }
 
 export interface IOrderData {
+<<<<<<< HEAD
   payment: TPayment
   email: string
   phone: string
@@ -33,6 +47,10 @@ export interface IOrderData {
   getOrderInfo():IOrderInfo;
   checkValidation(): boolean;
   setOrderInfo(data: IOrderInfo): void;
+=======
+  getOrderInfo():IOrderInfo;
+  checkValidation(): boolean;
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
   clear(): void;
 }
 

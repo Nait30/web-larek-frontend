@@ -3,7 +3,10 @@ import { cloneTemplate, ensureElement } from '../utils/utils';
 import { Component } from './base/Component';
 import { IEvents } from './base/events';
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
 export abstract class Card extends Component<ICard> {
 	protected element: HTMLElement;
 	protected events: IEvents;
@@ -20,20 +23,32 @@ export abstract class Card extends Component<ICard> {
 		this.price = this.element.querySelector('.card__price');
 	}
 
+<<<<<<< HEAD
 	render(CardData: ICard) {
 		this.CardId = CardData.id;
 		this.cardTitle.textContent = CardData.title;
 		this.price.textContent = String(CardData.price);
 		return this.renderElement();
+=======
+	setData(CardData: ICard) {
+		this.CardId = CardData.id;
+		this.cardTitle.textContent = CardData.title;
+		this.price.textContent = String(CardData.price);
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
 	}
 
 	get id() {
 		return this.CardId;
 	}
 
+<<<<<<< HEAD
 	renderElement() {
 		Object.assign(this)
 		return this.element;
+=======
+	render() {
+			 return this.element;
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
 	}
 }
 
@@ -46,11 +61,16 @@ export class CardCatalog extends Card {
 		this.category = this.element.querySelector('.card__category');
 		this.image = this.element.querySelector('.card__image');
 
+<<<<<<< HEAD
 		this.element.addEventListener('click', () =>
+=======
+		this.image.addEventListener('click', () =>
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
 			this.events.emit('card:select', {id: this.CardId})
 		);
 	}
 
+<<<<<<< HEAD
 	render(CardData: ICard) {
 		this.CardId = CardData.id;
 		this.cardTitle.textContent = CardData.title;
@@ -64,6 +84,16 @@ export class CardCatalog extends Card {
 
     setCardCategoryColor((this.category), CardData, this.toggleClass);
 		return this.renderElement();
+=======
+	setData(CardData: ICard) {
+		this.CardId = CardData.id;
+		this.cardTitle.textContent = CardData.title;
+		this.price.textContent = String(CardData.price);
+		this.category.textContent = CardData.category;
+		this.image.src = CardData.image;
+
+    checkCardCategoryColor((this.category), CardData, this.toggleClass);
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
 	}
 }
 
@@ -78,17 +108,28 @@ export class CardInBasket extends Card {
     this.deleteButton = this.element.querySelector('.basket__item-delete');
 
 		this.deleteButton.addEventListener('click', () =>
+<<<<<<< HEAD
 			this.events.emit('cardInBasket:delete', {id: this.CardId})
 		)
 	}
 
   render(CardData: ICard){
+=======
+			this.events.emit('card:delete', {id: this.CardId})
+		)
+	}
+
+  setData(CardData: ICard): void {
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
     this.CardId = CardData.id;
 		this.cardTitle.textContent = CardData.title;
 		this.price.textContent = String(CardData.price);
     this.index.textContent = String(CardData.index);
+<<<<<<< HEAD
 
 		return this.renderElement();
+=======
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
   }
 }
 
@@ -106,6 +147,7 @@ export class CardPreview extends Card {
     this.description =  this.element.querySelector('.card__text');
     this.addButton =  this.element.querySelector('.basket__item-add');
 
+<<<<<<< HEAD
 		this.addButton.addEventListener('click', (evt) =>
 			this.events.emit('card:add', {id: this.CardId})
 		)
@@ -140,10 +182,24 @@ export class CardPreview extends Card {
 		} else {
 			this.setText(this.addButton, 'В корзину')
 		}
+=======
+		this.addButton.addEventListener('click', () =>
+			this.events.emit('card:add', {id: this.CardId})
+		)
+	}
+	setData(CardData: ICard) {
+		this.CardId = CardData.id;
+		this.cardTitle.textContent = CardData.title;
+		this.price.textContent = String(CardData.price);
+		this.category.textContent = CardData.category;
+		this.image.src = CardData.image;
+    checkCardCategoryColor((this.category), CardData, this.toggleClass);
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
 	}
   
 }
 
+<<<<<<< HEAD
 function setCardCategoryColor(element:HTMLSpanElement, card:ICard, func: Function){
 	element.classList.remove('card__category_soft', 'card__category_other', 'card__category_additional', 'card__category_hard', 'card__category_button')
   if (card.category === 'софт-скил') {
@@ -157,4 +213,16 @@ function setCardCategoryColor(element:HTMLSpanElement, card:ICard, func: Functio
   } else if (card.category === 'кнопка') {
 		func(element, 'card__category_button')
 	}
+=======
+function checkCardCategoryColor(element:HTMLSpanElement, card:ICard, func: Function){
+  if (card.category === 'софт-скил') {
+    func(element, '.card__category_soft');
+  } else if (card.category === 'другое') {
+    func(element, '.card__category_other');
+  }else if (card.category === 'дополнительное') {
+    func(element, '.card__category_additional');
+  }else if (card.category === 'хард-скил') {
+    func(element, '.card__category__hard');
+  }
+>>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
 }
