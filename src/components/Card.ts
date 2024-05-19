@@ -1,4 +1,5 @@
 import { ICard } from '../types';
+import { cardCategoryConfig } from '../utils/constants';
 import { cloneTemplate, ensureElement } from '../utils/utils';
 import { Component } from './base/Component';
 import { IEvents } from './base/events';
@@ -28,6 +29,15 @@ export abstract class Card extends Component<ICard> {
 
 	get id() {
 		return this.cardId;
+	}
+
+	setCardCategoryColor(element: HTMLSpanElement, config: Record<string, string>){
+		Object.values(config).forEach((selector)=>{
+			element.classList.remove(selector);
+			console.log(selector)
+		})
+		const key = element.textContent;
+		element.classList.add(config[key]);
 	}
 
 	renderElement() {
@@ -61,9 +71,10 @@ export class CardCatalog extends Card {
 		this.category.textContent = cardData.category;
 		this.image.src = cardData.image;
 
-    setCardCategoryColor((this.category), cardData, this.toggleClass);
+    this.setCardCategoryColor((this.category), cardCategoryConfig);
 		return this.renderElement();
 	}
+
 }
 
 export class CardInBasket extends Card {
@@ -115,15 +126,15 @@ export class CardPreview extends Card {
 		this.category.textContent = CardData.category;
 		this.image.src = CardData.image;
 
-    setCardCategoryColor((this.category), CardData, this.toggleClass);
+    this.setCardCategoryColor((this.category), cardCategoryConfig);
 		this.setAddStatus(CardData.added);
 		this.setDisabled(this.addButton, !(CardData.price))
 		if (CardData.price == null){
 			this.price.textContent = 'Бесценно'; 
 		} else {this.price.textContent = `${String(CardData.price)} синапсов`;}
-
 		return this.renderElement();
 	}
+
 
 	setAddStatus(status:boolean){
 		if (status){
@@ -141,19 +152,4 @@ export class CardPreview extends Card {
 		}
 	}
   
-}
-
-function setCardCategoryColor(element:HTMLSpanElement, card:ICard, func: Function){
-	element.classList.remove('card__category_soft', 'card__category_other', 'card__category_additional', 'card__category_hard', 'card__category_button')
-  if (card.category === 'софт-скил') {
-    func(element, 'card__category_soft');
-  } else if (card.category === 'другое') {
-    func(element, 'card__category_other');
-  }else if (card.category === 'дополнительное') {
-    func(element, 'card__category_additional');
-  }else if (card.category === 'хард-скил') {
-    func(element, 'card__category_hard');
-  } else if (card.category === 'кнопка') {
-		func(element, 'card__category_button')
-	}
 }
