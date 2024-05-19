@@ -3,7 +3,6 @@ import { IEvents } from './base/events';
 
 export class CardData implements ICardData {
 	protected _cards: ICard[];
-	protected _preview: string;
 	protected events: IEvents;
 
 	constructor(events: IEvents) {
@@ -22,28 +21,13 @@ export class CardData implements ICardData {
 		this.events.emit('cards:uploaded');
 	}
 
-	addCardBasket(id: string): void {
-		let cards = this.getAddedCards();
-    let card = cards.find((card) => card.id === id)
-		if (!card) {
-      let index = cards.indexOf(card);
-			cards[index].added = true;
-			this.events.emit('basket:changed');
-		} else {
-			throw new Error('Item already in basket');
-		}
+	changeAddStatus(id: string): void {
+    let card = this.cards.find((card) => card.id === id)
+    let index = this.cards.indexOf(card);
+		this._cards[index].added = !(this._cards[index].added);
+		this.events.emit('basket:changed', this.getAddedCards());
 	}
-	deleteCardBasket(id: string): void {
-		let cards = this.getAddedCards();
-    let card = cards.find((card) => card.id === id)
-		if (!!card) {
-      let index = cards.indexOf(card);
-			cards[index].added = false;
-			this.events.emit('basket:changed');
-		} else {
-			throw new Error('Item isn`t in basket');
-		}
-	}
+
 
 	getAddedCards(): ICard[] {
 		let cards = this.cards.filter((card) => {
@@ -64,18 +48,18 @@ export class CardData implements ICardData {
 
 	getBasketTotal(): number {
 		let items = this.getAddedCards();
-		let total = 0;
-		items.forEach((item) => {
-			total = +item.price;
-		});
-		return total;
+		return items.reduce((acc, val)=> acc + val.price, 0
+		)
 	}
 
 	getCard(cardId: string): ICard {
 		return this._cards.find((item) => item.id === cardId);
 	}
 
-	get preview() {
-		return this._preview;
+
+	clearBusket(): void{
+		this.cards.forEach((card) => {
+			card.added = false;
+		})
 	}
 }

@@ -17,6 +17,7 @@ constructor(events: IEvents){
 
 
   getOrderInfo(): IOrderInfo {
+  if (this.checkValidation()){
     return {
       "payment": this._payment,
       "email": this._email,
@@ -24,28 +25,46 @@ constructor(events: IEvents){
       "address": this._address,
       "total": this._total,
       "items": this._items
-    }
+   }
   }
+  }
+
+  setOrderInfo(data: IOrderInfo) {
+    this.payment = data.payment;
+    this.email = data.email;
+    this.phone = data.phone;
+    this.address = data.address;
+    this.total = data.total;
+    this.items = data.items;
+  }
+
   set payment(payment: TPayment) {
-    this._payment = payment;
+    if(payment){
+    this._payment = payment;}
   }
   set email(email: string) {
-    this._email = email;
+    if (email){
+    this._email = email;}
   }
   set phone(phone: string) {
-    this._phone = phone;
+    if (phone){
+    this._phone = phone;}
   }
   set address(address: string) {
-    this._address = address;
+    if (address){
+    this._address = address;}
   }
   set total(total: number) {
-    this._total = total
+    if (total){
+    this._total = total}
   }
   set items(items: TItems) {
-    this._items = items;
+    if (items){
+    this._items = items;}
   }
   checkValidation(): boolean {
-    return !!(this.payment&&this._email&&this.phone&&this._address&&this.total&&this.items);
+    return !!(this._payment&&this._email&&this._phone&&this._address&&this._total&&this._items);
+
   }
   clear(): void {
     this.payment = null;

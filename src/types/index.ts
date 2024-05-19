@@ -10,23 +10,29 @@ export interface ICard {
 }
 
 export interface IOrderInfo {
-  payment: TPayment;
-  email: string;
-  phone: string;
-  address: string;
-  total: TCost;
-  items: TItems;
+  payment?: TPayment;
+  email?: string;
+  phone?: string;
+  address?: string;
+  total?: TCost;
+  items?: TItems;
 }
 
 export interface ICardData {
   cards: ICard[];
-  preview: string | null;
   getCard(cardId: string): ICard;
 }
 
 export interface IOrderData {
+  payment: TPayment
+  email: string
+  phone: string
+  address: string
+  total: TCost
+  items: string[]
   getOrderInfo():IOrderInfo;
   checkValidation(): boolean;
+  setOrderInfo(data: IOrderInfo): void;
   clear(): void;
 }
 

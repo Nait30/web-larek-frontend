@@ -98,18 +98,18 @@
 		<div class="modal__container">
 			<button class="modal__close" aria-label="закрыть"></button>
 			<div class="modal__content">
-				<form class="form">
+				<form class="form" name="orderStart">
 					<div class="order">
 						<div class="order__field">
 							<h2 class="modal__title">Способ оплаты</h2>
 							<div class="order__buttons">
-								<button type="button" class="button button_alt">Онлайн</button>
-								<button type="button" class="button button_alt">При получении</button>
+								<button type="button" class="button button_alt" name="online">Онлайн</button>
+								<button type="button" class="button button_alt" name="offline">При получении</button>
 							</div>
 						</div>
 						<label class="order__field">
 							<span class="form__label modal__title">Адрес доставки</span>
-							<input class="form__input" type="text" placeholder="Введите адрес" />
+							<input class="form__input" type="text" name="address" placeholder="Введите адрес" />
 						</label>
 					</div>
 					<div class="modal__actions">
@@ -124,15 +124,15 @@
 		<div class="modal__container">
 			<button class="modal__close" aria-label="закрыть"></button>
 			<div class="modal__content">
-				<form class="form">
+				<form class="form" name="orderContacts">
 					<div class="order">
 						<label class="order__field">
 							<span class="form__label modal__title">Email</span>
-							<input class="form__input" type="text" placeholder="Введите Email" />
+							<input class="form__input" type="text" name="email" placeholder="Введите Email" />
 						</label>
 						<label class="order__field">
 							<span class="form__label modal__title">Телефон</span>
-							<input class="form__input" type="text" placeholder="+7 (" />
+							<input class="form__input" type="text" name="phone" placeholder="+7 (" />
 						</label>
 					</div>
 					<div class="modal__actions">
@@ -214,8 +214,8 @@
 				<div class="order__field">
 					<h2 class="modal__title">Способ оплаты</h2>
 					<div class="order__buttons">
-						<button name="card" type="button" class="button button_alt">Онлайн</button>
-						<button name="cash" type="button" class="button button_alt">При получении</button>
+						<button name="online" type="button" class="button button_alt order__button">Онлайн</button>
+						<button name="offline" type="button" class="button button_alt order__button">При получении</button>
 					</div>
 				</div>
 				<label class="order__field">
@@ -224,7 +224,7 @@
 				</label>
 			</div>
 			<div class="modal__actions">
-				<button type="submit" disabled class="button order__button">Далее</button>
+				<button type="submit" disabled class="button order__button button__submit">Далее</button>
 				<span class="form__errors"></span>
 			</div>
 		</form>
@@ -243,7 +243,7 @@
 				</label>
 			</div>
 			<div class="modal__actions">
-				<button type="submit" disabled class="button">Оплатить</button>
+				<button type="submit" disabled class="button button__submit">Оплатить</button>
 				<span class="form__errors"></span>
 			</div>
 		</form>
