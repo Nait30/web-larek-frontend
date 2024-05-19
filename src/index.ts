@@ -3,7 +3,7 @@ import { CardsContainer } from './components/CardsContainer';
 import { CardData } from './components/CardsData';
 import { OrderData } from './components/OrderData';
 import { ShopAPI } from './components/ShopAPI';
-import { EventEmitter } from './components/base/events';
+import { EventEmitter } from './components/base/Events';
 import { Basket } from './components/BasketV';
 import './scss/styles.scss';
 import { API_URL, CDN_URL } from './utils/constants';
