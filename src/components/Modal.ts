@@ -59,6 +59,7 @@ interface IModalForm {
 export class ModalWithForm extends Modal<IModalForm> {
 	protected submitButton: HTMLButtonElement;
 	protected inputs: NodeListOf<HTMLInputElement>;
+	protected formErrors: HTMLSpanElement;
 
 	constructor(
 		container: HTMLElement,
@@ -68,8 +69,17 @@ export class ModalWithForm extends Modal<IModalForm> {
 		super(container, events, content);
 		this.inputs = this.content.querySelectorAll('.form__input');
 		this.submitButton = this.content.querySelector('.button__submit');
+		this.formErrors = this.content.querySelector('.form__errors');
 		this.content.addEventListener('input', (event: InputEvent) => {
 			this.setDisabled(this.submitButton, !this.checkValidation());
+			const input = event.target as HTMLInputElement;
+			if(!input.value) {
+				this.setText(this.formErrors, 'Заполните обязательные поля')
+				console.log('заполнено')
+			} else {
+				this.setText(this.formErrors, '')
+				console.log('не заполнено')
+			}
 		});
 	}
 
