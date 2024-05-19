@@ -1,25 +1,14 @@
-<<<<<<< HEAD
 import { CardCatalog, CardInBasket, CardPreview } from './components/Card';
 import { CardsContainer } from './components/CardsContainer';
-=======
-import { BasketModel } from './components/BasketModel';
-import { CardCatalog } from './components/Card';
->>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
 import { CardData } from './components/CardsData';
 import { OrderData } from './components/OrderData';
 import { ShopAPI } from './components/ShopAPI';
 import { EventEmitter } from './components/base/events';
-<<<<<<< HEAD
 import { Basket } from './components/BasketV';
 import './scss/styles.scss';
 import { API_URL, CDN_URL } from './utils/constants';
 import { ModalWithBusket, ModalWithContactsForm, ModalWithItem, ModalWithOrderComplete, ModalWithOrderForm } from './components/Modal';
 import { ICard, IOrderResult, TPayment } from './types';
-=======
-import './scss/styles.scss';
-import { API_URL, CDN_URL } from './utils/constants';
-import { cards } from './utils/tempConstants';
->>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
 
 
 const events = new EventEmitter();
@@ -28,7 +17,6 @@ const cardsData = new CardData(events);
 const orderData = new OrderData(events);
 const api = new ShopAPI(CDN_URL, API_URL);
 
-<<<<<<< HEAD
 
 const cardCatalogItem = document.getElementById('card-catalog') as HTMLTemplateElement;
 
@@ -53,23 +41,10 @@ const modalWithContacts = new ModalWithContactsForm(baseModal, events, document.
 const modalWithOrderComplete = new ModalWithOrderComplete(baseModal, events, document.getElementById('success') as HTMLTemplateElement);
 
 
-=======
-const cardCatalogItem = document.getElementById('card-catalog') as HTMLTemplateElement;
-const testSection = document.querySelector('.gallery');
-
-const cardGallery = new CardCatalog(cardCatalogItem, events)
-
-cardGallery.setData(cards[0]);
-
-console.log(cardGallery.render())
-
-testSection.append(cardGallery.render());
->>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
 
 api.getProductList()
 .then((items) => {
     cardsData.cards = items;
-<<<<<<< HEAD
     events.emit('cards:uploaded')
 })
 .catch((err) => {
@@ -140,12 +115,3 @@ events.on('cardInBasket:delete', (data: {id: string}) => {
   events.emit('card:delete', {id: data.id})
   events.emit('basket:open');
 })
-=======
-})
-.then((dats) => {
-    cardGallery.setData(cardsData.cards[2]);
-})
-.catch((err) => {
-    console.error(err);
-  }) 
->>>>>>> e0117c2b3707fa365c164485bb3066e31ec7a163
