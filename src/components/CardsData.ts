@@ -58,8 +58,9 @@ export class CardData implements ICardData {
 
 
 	clearBusket(): void{
-		this.cards.forEach((card) => {
+		this._cards.forEach((card) => {
 			card.added = false;
 		})
+		this.events.emit('basket:changed', this.getAddedCards());
 	}
 }

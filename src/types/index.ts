@@ -1,3 +1,8 @@
+export type ApiListResponse<Type> = {
+  total: number,
+  items: Type[]
+};
+
 export interface ICard {
   id: string;
   description: string;

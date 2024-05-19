@@ -1,5 +1,6 @@
 import { ICard, IOrderInfo, IOrderResult } from "../types";
-import { Api, ApiListResponse } from "./base/api";
+import { Api } from "./base/api";
+import { ApiListResponse } from "../types/index";
 
 export interface IShopAPI {
   getProductList: () => Promise<ICard[]>;

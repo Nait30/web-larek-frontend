@@ -1,4 +1,5 @@
 import { ICard } from '../types';
+import { cardCategoryConfig } from '../utils/constants';
 import { cloneTemplate, ensureElement } from '../utils/utils';
 import { Component } from './base/Component';
 import { IEvents } from './base/events';
@@ -8,7 +9,7 @@ export abstract class Card extends Component<ICard> {
 	protected events: IEvents;
 	protected cardTitle: HTMLElement;
 	protected price: HTMLSpanElement;
-	protected CardId: string;
+	protected cardId: string;
 
 	constructor(container: HTMLTemplateElement, events: IEvents) {
 		super(container);
@@ -19,15 +20,23 @@ export abstract class Card extends Component<ICard> {
 		this.price = this.element.querySelector('.card__price');
 	}
 
-	render(CardData: ICard) {
-		this.CardId = CardData.id;
-		this.cardTitle.textContent = CardData.title;
-		this.price.textContent = String(CardData.price);
+	render(cardData: ICard) {
+		this.cardId = cardData.id;
+		this.cardTitle.textContent = cardData.title;
+		this.price.textContent = String(cardData.price);
 		return this.renderElement();
 	}
 
 	get id() {
-		return this.CardId;
+		return this.cardId;
+	}
+
+	setCardCategoryColor(element: HTMLSpanElement, config: Record<string, string>){
+		Object.values(config).forEach((selector)=>{
+			element.classList.remove(selector);
+		})
+		const key = element.textContent;
+		element.classList.add(config[key]);
 	}
 
 	renderElement() {
@@ -46,24 +55,25 @@ export class CardCatalog extends Card {
 		this.image = this.element.querySelector('.card__image');
 
 		this.element.addEventListener('click', () =>
-			this.events.emit('card:select', {id: this.CardId})
+			this.events.emit('card:select', {id: this.cardId})
 		);
 	}
 
-	render(CardData: ICard) {
-		this.CardId = CardData.id;
-		this.cardTitle.textContent = CardData.title;
-		if (CardData.price == null){
-			this.price.textContent = 'null'//можно написать 0, но так смотрится гораздо лучше в этой тематике.
+	render(cardData: ICard) {
+		this.cardId = cardData.id;
+		this.cardTitle.textContent = cardData.title;
+		if (cardData.price == null){
+			this.price.textContent = 'Бесценно'
 		} else{
-			this.price.textContent = String(CardData.price);
+			this.price.textContent = `${String(cardData.price)} синапсов`;
 		}
-		this.category.textContent = CardData.category;
-		this.image.src = CardData.image;
+		this.category.textContent = cardData.category;
+		this.image.src = cardData.image;
 
-    setCardCategoryColor((this.category), CardData, this.toggleClass);
+    this.setCardCategoryColor((this.category), cardCategoryConfig);
 		return this.renderElement();
 	}
+
 }
 
 export class CardInBasket extends Card {
@@ -77,14 +87,14 @@ export class CardInBasket extends Card {
     this.deleteButton = this.element.querySelector('.basket__item-delete');
 
 		this.deleteButton.addEventListener('click', () =>
-			this.events.emit('cardInBasket:delete', {id: this.CardId})
+			this.events.emit('cardInBasket:delete', {id: this.cardId})
 		)
 	}
 
   render(CardData: ICard){
-    this.CardId = CardData.id;
+    this.cardId = CardData.id;
 		this.cardTitle.textContent = CardData.title;
-		this.price.textContent = String(CardData.price);
+		this.price.textContent = `${String(CardData.price)} синапсов`;
     this.index.textContent = String(CardData.index);
 
 		return this.renderElement();
@@ -106,24 +116,24 @@ export class CardPreview extends Card {
     this.addButton =  this.element.querySelector('.basket__item-add');
 
 		this.addButton.addEventListener('click', (evt) =>
-			this.events.emit('card:add', {id: this.CardId})
+			this.events.emit('card:add', {id: this.cardId})
 		)
 	}
 	render(CardData: ICard) {
-		this.CardId = CardData.id;
+		this.cardId = CardData.id;
 		this.cardTitle.textContent = CardData.title;
 		this.category.textContent = CardData.category;
 		this.image.src = CardData.image;
 
-    setCardCategoryColor((this.category), CardData, this.toggleClass);
+    this.setCardCategoryColor((this.category), cardCategoryConfig);
 		this.setAddStatus(CardData.added);
 		this.setDisabled(this.addButton, !(CardData.price))
 		if (CardData.price == null){
-			this.price.textContent = 'null'; 
-		} else {this.price.textContent = String(CardData.price);}
-
+			this.price.textContent = 'Бесценно'; 
+		} else {this.price.textContent = `${String(CardData.price)} синапсов`;}
 		return this.renderElement();
 	}
+
 
 	setAddStatus(status:boolean){
 		if (status){
@@ -141,19 +151,4 @@ export class CardPreview extends Card {
 		}
 	}
   
-}
-
-function setCardCategoryColor(element:HTMLSpanElement, card:ICard, func: Function){
-	element.classList.remove('card__category_soft', 'card__category_other', 'card__category_additional', 'card__category_hard', 'card__category_button')
-  if (card.category === 'софт-скил') {
-    func(element, 'card__category_soft');
-  } else if (card.category === 'другое') {
-    func(element, 'card__category_other');
-  }else if (card.category === 'дополнительное') {
-    func(element, 'card__category_additional');
-  }else if (card.category === 'хард-скил') {
-    func(element, 'card__category_hard');
-  } else if (card.category === 'кнопка') {
-		func(element, 'card__category_button')
-	}
 }
