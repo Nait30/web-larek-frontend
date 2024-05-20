@@ -72,15 +72,17 @@ export class ModalWithForm extends Modal<IModalForm> {
 		this.formErrors = this.content.querySelector('.form__errors');
 		this.content.addEventListener('input', (event: InputEvent) => {
 			this.setDisabled(this.submitButton, !this.checkValidation());
-			const input = event.target as HTMLInputElement;
-			if(!input.value) {
-				this.setText(this.formErrors, 'Заполните обязательные поля')
-				console.log('заполнено')
-			} else {
-				this.setText(this.formErrors, '')
-				console.log('не заполнено')
-			}
+			this.setError();
 		});
+		
+	}
+
+	protected setError(){
+		if(!(this.checkValidation())) {
+			this.setText(this.formErrors, 'Заполните обязательные поля')
+		} else {
+			this.setText(this.formErrors, '')
+		}
 	}
 
 	protected getInputValues() {
@@ -128,6 +130,7 @@ export class ModalWithOrderForm extends ModalWithForm {
 				const target = evt.target as HTMLButtonElement;
 				this.setPaymentButtons(target);
 				this.setDisabled(this.submitButton, !this.checkValidation());
+				this.setError();
 			});
 		});
 		this.content.addEventListener('submit', (evt) => {
